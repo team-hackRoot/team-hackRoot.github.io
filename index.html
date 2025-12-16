@@ -6,7 +6,7 @@
   <title>HackRoot — Coming Soon</title>
 
   <!-- Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -16,7 +16,7 @@
       --accent2:#00D4FF;
       --text:#EAF1FF;
       --muted:#9FB3D1;
-      --radius:16px;
+      --radius:18px;
     }
 
     *{box-sizing:border-box}
@@ -25,7 +25,9 @@
     body{
       margin:0;
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
-      background:linear-gradient(180deg,#050b1d,#020716);
+      background:
+        radial-gradient(1000px 500px at 80% -20%, rgba(0,212,255,.15), transparent 45%),
+        linear-gradient(180deg,#050b1d,#020716);
       color:var(--text);
       overflow:hidden;
     }
@@ -47,85 +49,113 @@
       padding:24px;
     }
 
+    /* ---------- CARD ---------- */
     .card{
-      background:linear-gradient(180deg, rgba(11,31,68,0.78), rgba(6,18,40,0.92));
+      position:relative;
+      background:linear-gradient(180deg, rgba(11,31,68,0.85), rgba(6,18,40,0.95));
       border:1px solid rgba(255,255,255,0.08);
       border-radius:var(--radius);
-      padding:64px 56px;
+      padding:68px 58px;
       text-align:center;
-      box-shadow:0 30px 90px rgba(0,0,0,0.55);
-      backdrop-filter: blur(12px);
-      max-width:820px;
+      box-shadow:
+        0 40px 120px rgba(0,0,0,0.65),
+        inset 0 1px 0 rgba(255,255,255,0.06);
+      backdrop-filter: blur(14px);
+      max-width:840px;
       width:100%;
       animation: fadeUp 1s ease forwards;
+      transition:transform .4s ease, box-shadow .4s ease;
     }
 
+    .card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 60px 160px rgba(0,0,0,0.75);
+    }
+
+    /* ---------- COMING SOON BADGE ---------- */
     .pill{
-      display:inline-block;
-      padding:6px 14px;
+      position:absolute;
+      top:-14px;
+      left:50%;
+      transform:translateX(-50%);
+      padding:7px 18px;
       border-radius:999px;
-      background:rgba(30,144,255,0.12);
-      border:1px solid rgba(30,144,255,0.35);
+      background:linear-gradient(180deg, rgba(30,144,255,.35), rgba(30,144,255,.12));
+      border:1px solid rgba(30,144,255,.55);
       color:var(--accent2);
       font-size:12px;
-      letter-spacing:0.6px;
+      letter-spacing:0.8px;
       text-transform:uppercase;
-      margin-bottom:22px;
+      box-shadow:0 8px 22px rgba(30,144,255,.35);
     }
 
+    /* ---------- LOGO WITH SHINE ---------- */
     .brand{
-      font-weight:800;
-      font-size:30px;
-      letter-spacing:0.4px;
-      margin-bottom:18px;
-    }
-    .brand span:first-child{color:#eaf1ff}
-    .brand span:last-child{
-      color:var(--accent);
-      animation: glowPulse 3s ease-in-out infinite;
-    }
-
-    /* ---------- Text Reveal ---------- */
-    .reveal{
+      position:relative;
+      display:inline-block;
+      font-weight:900;
+      font-size:34px;
+      letter-spacing:.5px;
+      margin-bottom:22px;
       overflow:hidden;
     }
 
+    .brand span:first-child{color:#ffffff}
+    .brand span:last-child{
+      color:var(--accent);
+      text-shadow:0 0 22px rgba(30,144,255,.6);
+    }
+
+    /* Shine layer */
+    .brand::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(
+        120deg,
+        transparent 30%,
+        rgba(255,255,255,.65) 50%,
+        transparent 70%
+      );
+      transform:translateX(-130%);
+      pointer-events:none;
+    }
+
+    .brand.shine::after{
+      animation: shine 1.4s cubic-bezier(.4,0,.2,1) forwards;
+    }
+
+    @keyframes shine{
+      to{transform:translateX(130%)}
+    }
+
+    /* ---------- TEXT ---------- */
     h1{
-      margin:0 0 18px;
+      margin:0 0 20px;
       font-size:46px;
       line-height:1.08;
       letter-spacing:-0.6px;
-      transform:translateY(100%);
-      animation: revealUp 1.2s ease forwards;
-      animation-delay:.3s;
     }
 
     .subtitle{
-      max-width:640px;
-      margin:0 auto 36px;
+      max-width:620px;
+      margin:0 auto 40px;
       color:var(--muted);
       font-size:16px;
-      line-height:1.7;
-      opacity:0;
-      animation: fadeIn 1.2s ease forwards;
-      animation-delay:.9s;
+      line-height:1.75;
     }
 
     .divider{
-      width:90px;
+      width:96px;
       height:3px;
-      margin:28px auto;
+      margin:32px auto;
       background:linear-gradient(90deg, transparent, var(--accent), transparent);
       border-radius:2px;
     }
 
     .contact{
-      margin-top:10px;
       font-size:14px;
       color:var(--muted);
-      opacity:0;
-      animation: fadeIn 1s ease forwards;
-      animation-delay:1.3s;
     }
 
     .contact a{
@@ -135,12 +165,9 @@
     }
 
     footer{
-      margin-top:42px;
+      margin-top:52px;
       font-size:13px;
       color:#8fa6c9;
-      opacity:0;
-      animation: fadeIn 1s ease forwards;
-      animation-delay:1.6s;
     }
 
     footer span{color:var(--accent)}
@@ -151,22 +178,11 @@
       to{opacity:1;transform:none}
     }
 
-    @keyframes revealUp{
-      to{transform:translateY(0)}
-    }
-
-    @keyframes fadeIn{
-      to{opacity:1}
-    }
-
-    @keyframes glowPulse{
-      0%,100%{text-shadow:none}
-      50%{text-shadow:0 0 18px rgba(30,144,255,.6)}
-    }
-
+    /* ---------- Responsive ---------- */
     @media(max-width:640px){
       h1{font-size:34px}
-      .card{padding:44px 26px}
+      .brand{font-size:30px}
+      .card{padding:48px 26px}
     }
   </style>
 </head>
@@ -179,13 +195,11 @@
   <section class="card">
     <div class="pill">Coming Soon</div>
 
-    <div class="brand">
+    <div class="brand" id="logo">
       <span>hack</span><span>Root</span>
     </div>
 
-    <div class="reveal">
-      <h1>Something Powerful is Coming</h1>
-    </div>
+    <h1>Something Powerful is Coming</h1>
 
     <p class="subtitle">
       HackRoot is building a focused, AI-first tech ecosystem.
@@ -197,7 +211,7 @@
 
     <div class="contact">
       For queries or collaboration:<br>
-      <a href="mailto:hackroothelp@mail.com">hackroothelp@mail.com</a>
+      <a href="mailto:hackroothelp@gmail.com">hackroothelp@gmail.com</a>
     </div>
 
     <footer>
@@ -215,10 +229,10 @@
   function resize(){
     w = canvas.width = window.innerWidth;
     h = canvas.height = window.innerHeight;
-    particles = Array.from({length: Math.min(90, w/12)}, () => ({
+    particles = Array.from({length: Math.min(80, w/14)}, () => ({
       x: Math.random()*w,
       y: Math.random()*h,
-      r: Math.random()*1.4 + 0.3,
+      r: Math.random()*1.2 + 0.3,
       v: Math.random()*0.25 + 0.05
     }));
   }
@@ -239,6 +253,11 @@
   window.addEventListener("resize", resize);
   resize();
   draw();
+
+  /* ---------- One-Time Logo Shine ---------- */
+  window.addEventListener("load",()=>{
+    setTimeout(()=>document.getElementById("logo").classList.add("shine"),600);
+  });
 </script>
 
 </body>
